@@ -37,6 +37,12 @@ lswt_array <- ncvar_get(our_nc_data, "lake_surface_water_temperature") #get the 
 fillvalue <- ncatt_get(our_nc_data, "lake_surface_water_temperature", "_FillValue")
 dim(lswt_array)
 
+# replace nc Fillvalues with  R NAs
+lswt_array[lswt_array==fillvalue$value] <- NA
+lswt_array
+#each "slice" is a point in time; 23 cols = Lat, 24 rows = Lon
+dim(lswt_array)
+
 
 # Fix to readable time -----------------------------------------
 
@@ -54,11 +60,6 @@ range(time_obs) #Range: 28 june 1995 - 31 december 2016
 # Play around a bit to understand the array slices -------------
 
 #NOT continuous time series yet, just dates with LSWT data. 
-# replace nc Fillvalues with  R NAs
-lswt_array[lswt_array==fillvalue$value] <- NA
-lswt_array
-#each "slice" is a point in time; 23 cols = Lat, 24 rows = Lon
-dim(lswt_array)
 
 #Trying it out
 lswt_slice <- lswt_array[ , , 2123] #ex. [lon, lat, TIME] - leave lon and lat empty to try them all, change LSWT at datetime; try different ones
@@ -90,7 +91,7 @@ head(lswt_obs)
 colnames(lswt_obs) <- c("Long","Lat","Date","LSWT_Kelvin")
 head(lswt_obs)
 
-# remove the NAs (full train of thought as to *why I did this* _here:_)
+# remove the NAs (full train of thought as to *why I did this* _here: link al post_)
 lswt_final <- na.omit(lswt_obs)
 head(lswt_final)
 dim(lswt_final)
