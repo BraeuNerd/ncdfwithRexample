@@ -1,3 +1,5 @@
+# For a more detailed explanation of this script you can read the full tutorial here: https://towardsdatascience.com/how-to-crack-open-netcdf-files-in-r-and-extract-data-as-time-series-24107b70dcd
+
 # Load packages -------------------------------------------------
 
 library(ncdf4) #package for netcdf manipulation; unlike ncdf package, ncdf4 supports both NetCDF3 and netCDF4 formats.
